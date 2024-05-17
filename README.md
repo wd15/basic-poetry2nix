@@ -71,25 +71,25 @@ to update the lock file.
 Add the flake.nix from this repository to the directory with the new
 environment.
 
-   $ wget https://raw.githubusercontent.com/wd15/basic-poetry2nix/main/flake.nix
+    $ wget https://raw.githubusercontent.com/wd15/basic-poetry2nix/main/flake.nix
    
 Set up the `basic` directory to be a Git repository.
 
-   $ git init
-   $ git add flake.nix pyproject.toml poetry.lock
-   $ git ci -m "initial commit"
+    $ git init
+    $ git add flake.nix pyproject.toml poetry.lock
+    $ git ci -m "initial commit"
    
 Now the development environment should now work
 
-   $ nix develop
-   $ python -c "import numpy; print(numpy.__version__)
-   $ exit
+    $ nix develop
+    $ python -c "import numpy; print(numpy.__version__)
+    $ exit
 
 This should have generated `flake.lock` file. Add this to the
 repository.
 
-   $ git add flake.lock
-   $ git ci -m "adding flake.lock"
+    $ git add flake.lock
+    $ git ci -m "adding flake.lock"
    
 ## Additional odds and ends
 
