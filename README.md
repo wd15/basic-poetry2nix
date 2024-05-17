@@ -1,7 +1,8 @@
 # Set up a basic poetry2nix environment
 
-A minimalist example of using poetry2nix without any package
-development. These are instructions for starting a new Python
+A minimalist example of using
+[poetry2nix](https://github.com/nix-community/poetry2nix) without any
+package development. These are instructions for starting a new Python
 environment using Nix.
 
 ## Nix
@@ -92,6 +93,28 @@ repository.
     $ git ci -m "adding flake.lock"
    
 ## Additional odds and ends
+
+### `ModuleNotFoundError`
+
+If you get the `ModuleNotFoundError: No module named 'PACKAGENAME'`
+then [read
+this](https://github.com/nix-community/poetry2nix/blob/master/docs/edgecases.md#cases). Basically,
+the following section of the flake.nix needs to be edited.
+
+```
+      pypkgs-build-requirements = {
+        # attrs = [ "hatchling" ];
+        # urllib3 = [ "hatchling" ];
+        # hbreader = [ "setuptools" ];
+        # pytrie = [ "setuptools" ];
+        # url-normalize = [ "poetry-core" ];
+        # cfgraph = [ "setuptools" ];
+        # pytest-logging = [ "setuptools" ];
+        # mkdocs-windmill = [ "setuptools" ];
+        # paginate = [ "setuptools" ];
+      };
+```
+The package that is failing needs to correctly identify its build mechanism.
 
 ### Nix Shell Prompt
 
