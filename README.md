@@ -82,7 +82,7 @@ Set up the `basic` directory to be a Git repository.
 Now the development environment should now work
 
     $ nix develop
-    $ python -c "import numpy; print(numpy.__version__)
+    $ python -c "import numpy; print(numpy.__version__)"
     $ exit
 
 This should have generated `flake.lock` file. Add this to the
