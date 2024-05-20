@@ -8,20 +8,24 @@ package to use this since `package-mode = false`. It also uses a Flake
 that doesn't need to be edited. All that needs editing is the
 pyproject.toml file. This should be edited using the poetry tool. IMO,
 this is the simplest way to use Python maintained as as Nix
-environment.
+environment. Note that here we're using Micromamba to install and use
+poetry, but we could use any Python environment manager to do this or
+even Nix probably. However, I tend to use Micromamba for this
+boostrapping issue.
 
 ## 1. Nix
 
 Install Nix using the instructions on [nix.dev]. Make sure Flakes are
 working correctly, [see below](#flakes)
 
-## 2. Setup Poetry and the "basic" environment
+## 2. Setup Poetry and the "basic" environment (if necessary)
 
 Firstly install [Poetry](https://python-poetry.org) in way that works
 with your current environment management system. I installed
 [Micromamba using Nix][micromamba-nix] and home-manager as I already
 use Nix. Micromamba is used outside of the Nix environment as a
-boostrapping mechanism to deal with Poetry.
+boostrapping mechanism to deal with Poetry. You could use Conda or Pip
+to install Poetry, it doesn't matter.
 
 	$ mkdir basic
 	$ cd basic
@@ -66,7 +70,7 @@ You can add new packages using
 
     $ poetry add numpy
 	
-and then run
+for example and then run
 
     $ poetry lock
 	
