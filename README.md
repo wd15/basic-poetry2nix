@@ -1,16 +1,21 @@
 # Set up a basic poetry2nix environment
 
-A minimalist example of using
+A minimalist example using
 [poetry2nix](https://github.com/nix-community/poetry2nix) without any
-package development. These are instructions for starting a new Python
-environment using Nix.
+package development. These instructions should generate a new Python
+environment using Nix. It does not require a Python development
+package to use this since `package-mode = false`. It also uses a Flake
+that doesn't need to be edited. All that needs editing is the
+pyproject.toml file. This should be edited using the poetry tool. IMO,
+this is the simplest way to use Python maintained as as Nix
+environment.
 
-## Nix
+## 1. Nix
 
 Install Nix using the instructions on [nix.dev]. Make sure Flakes are
-working correctly, [see below](#nix-flakes)
+working correctly, [see below](#flakes)
 
-## Setup Poetry and the "basic" environment
+## 2. Setup Poetry and the "basic" environment
 
 Firstly install [Poetry](https://python-poetry.org) in way that works
 with your current environment management system. I installed
@@ -24,7 +29,7 @@ boostrapping mechanism to deal with Poetry.
     $ micromamba create -n basic python poetry
     $ micromamba activate basic
 
-## Create the pyproject.toml
+## 3. Create the pyproject.toml
 
 The first step is to create a new Poetry package.
 
@@ -55,7 +60,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 ~~~
 
-## Add packages
+## 4. Add packages
 
 You can add new packages using
 
@@ -67,7 +72,7 @@ and then run
 	
 to update the lock file.
 
-## Nix Flakes
+## 5. Setup the flake
 
 Add the flake.nix from this repository to the directory with the new
 environment.
@@ -80,6 +85,8 @@ Set up the `basic` directory to be a Git repository.
     $ git add flake.nix pyproject.toml poetry.lock
     $ git ci -m "initial commit"
    
+## 6. Run the environment
+
 Now the development environment should now work
 
     $ nix develop
@@ -92,7 +99,7 @@ repository.
     $ git add flake.lock
     $ git ci -m "adding flake.lock"
    
-## Additional odds and ends
+## 7. Additional odds and ends
 
 ### `ModuleNotFoundError`
 
@@ -161,7 +168,7 @@ To test that flakes are working try
 
 When the flake is updated, a new `flake.lock` file is generated which
 must be committed to the repository alongside the `flake.nix`. Note
-that the flake files depend on the `nixos-23.05` branch which is only
+that the flake files depend on the `nixos-23.11` branch which is only
 updated with backports for bug fixes. To update to a newer version of
 Nixpkgs then the `flake.nix` file requires editing to point at a later
 Nixpkgs version.
@@ -170,5 +177,3 @@ Nixpkgs version.
 [nix.dev]: https://nix.dev
 [micromamba-nix]: https://nixos.wiki/wiki/Python#micromamba
 [flakes]: https://nixos.wiki/wiki/Flakes
-[conventional]: https://www.conventionalcommits.org
-[pypi-test]: https://stackoverflow.com/questions/68882603/using-python-poetry-to-publish-to-test-pypi-org
