@@ -125,7 +125,10 @@ the following section of the flake.nix needs to be edited.
         # paginate = [ "setuptools" ];
       };
 ```
-The package that is failing needs to correctly identify its build mechanism.
+
+The package that is failing needs to correctly identify its build
+mechanism. For example, in the above list, `pytest-logging` requires
+`setuptools`.
 
 ### Nix Shell Prompt
 
