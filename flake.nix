@@ -1,16 +1,25 @@
 {
-  description = "Python environment for python-pfhub";
+  description = "Basic Python Environment using poetry2nix";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     utils.url = "github:numtide/flake-utils";
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, utils}: (utils.lib.eachSystem ["x86_64-linux" ] (system:
+  outputs = { self, nixpkgs, utils, poetry2nix}: (utils.lib.eachSystem ["x86_64-linux" ] (system:
     let
-      pkgs = nixpkgs.legacyPackages.${system};
-      pypkgs = pkgs.python310Packages;
-
+      pkgs = import nixpkgs {
+        inherit system;
+        config.cudaSupport = true;
+        config.allowUnfree = true;
+        overlays = [
+          poetry2nix.overlays.default
+        ];
+      };
       pypkgs-build-requirements = {
         # attrs = [ "hatchling" ];
         # urllib3 = [ "hatchling" ];
@@ -50,8 +59,8 @@
             export PYTHONPATH=$PWD
          '';
        };
-       packages.pfhub = app;
-       packages.default = self.packages.${system}.pfhub;
+       packages.basic = app;
+       packages.default = self.packages.${system}.basic;
       }
     )
   );
