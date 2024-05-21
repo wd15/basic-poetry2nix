@@ -11,7 +11,7 @@ this is the simplest way to use Python maintained as as Nix
 environment. Note that here we're using Micromamba to install and use
 poetry, but we could use any Python environment manager to do this or
 even Nix probably. However, I tend to use Micromamba for this
-boostrapping issue.
+boostrapping issue. These instructions do not require this respository to be cloned. However, it does use the `flake.nix` file in the repository, which should be downloaded.
 
 ## 1. Nix
 
